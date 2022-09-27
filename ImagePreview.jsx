@@ -8,8 +8,30 @@ function SpinnerButton(props) {
     height: props.height || "40px",
   };
 
+  //image preview
+  const [imageURL, setImageURL] = useState("");
+  //   create image preview
+  useEffect(() => {
+    if (image) {
+      if (image.name) {
+        const url = URL.createObjectURL(image);
+        setImageURL(url);
+      } else {
+        setImageURL(image);
+      }
+    }
+  }, [image]);
+
   return (
-    <div className="my_font">
+    <div>
+      {/* image preview  */}
+      <div>
+        {imageURL && (
+          <img src={imageURL} alt="cover image" className="cover-image" />
+        )}
+      </div>
+
+      {/* buttons */}
       {!props.isSubmitting ? (
         <button
           className={`btn btn-primary ${props.className}`}
